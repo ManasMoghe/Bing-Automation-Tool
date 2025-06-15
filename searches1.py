@@ -2,15 +2,26 @@ import subprocess
 import pyautogui
 import time
 
-edge_path = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
-subprocess.Popen(edge_path)
+edge = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+profile_dir = ["Profile 2","Profile 3"]
+url1 = f"https://rewards.bing.com/?form=edgepredeem"
 
-time.sleep(5)
+search_queries = ["weather today", "news headlines", "coding tutorials","youtube","drgon ball","naruto","kamehameha","instinct","brain","bmw"]
 
-pyautogui.click(x=400, y=50)
+for i in profile_dir:
+    subprocess.Popen([edge,f"--profile-directory={i}"])
+    
+    time.sleep(5)
+    
+    for i in search_queries:
+        pyautogui.click(x=753, y=51)
+        
+        time.sleep(1)
+        
+        pyautogui.write(i, interval=0.1)
+        pyautogui.press('enter')
+        
+        time.sleep(5)
+    
+    subprocess.Popen([edge,url1])
 
-time.sleep(0.5)
-
-pyautogui.write("weather today", interval=0.1)
-
-pyautogui.press('enter')
