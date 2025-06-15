@@ -70,15 +70,10 @@ def run_script(console=None, force=False):
                 if not is_edge_window_open():
                     log_to_console(console, "Edge window closed. Exiting.")
                     return
-
-                if i == 0:
-                    pyautogui.click(x=753, y=51)
-                else:
-                    pyautogui.hotkey('ctrl', 't')
-                    time.sleep(1)
-                    pyautogui.click(x=753, y=51)
-                
+            
+                pyautogui.hotkey('ctrl', 't')
                 time.sleep(1)
+                
                 try:
                     pyautogui.write(query, interval=0.1)
                 except pyautogui.FailSafeException:
