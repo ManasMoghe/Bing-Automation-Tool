@@ -5,7 +5,6 @@ import datetime
 import os
 import sys
 import pygetwindow as gw
-import random
 
 def is_edge_window_open():
     windows = gw.getAllWindows()
@@ -41,26 +40,14 @@ edge = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
 profile_dir = ["Profile 2","Profile 3"]
 url1 = f"https://rewards.bing.com/?form=edgepredeem"
 
-queries_file = os.path.join(os.path.dirname(__file__), "search_queries.txt")
+search_queries = ["weather today", "news headlines", "coding tutorials","youtube","drgon ball","naruto","kamehameha","instinct","brain","bmw"]
 
-if not os.path.exists(queries_file):
-    print("search_queries.txt not found. Exiting.")
-    sys.exit()
-
-with open(queries_file, "r", encoding="utf-8") as f:
-    all_queries = [line.strip() for line in f if line.strip()]
-
-search_queries = random.sample(all_queries, min(10, len(all_queries)))
-
-
-
-
-for profile in profile_dir:
-    subprocess.Popen([edge,f"--profile-directory={profile}"])
+for i in profile_dir:
+    subprocess.Popen([edge,f"--profile-directory={i}"])
     
     time.sleep(5)
     
-    for query in search_queries:
+    for i in search_queries:
         if not is_edge_window_open():
             print("Edge window is closed. Exiting script.")
             sys.exit()
@@ -69,7 +56,7 @@ for profile in profile_dir:
         
         time.sleep(1)
         try:
-            pyautogui.write(query, interval=0.1)
+            pyautogui.write(i, interval=0.1)
         except pyautogui.FailSafeException:
             print("Mouse moved to corner. Script stopped for safety.")
             sys.exit()
