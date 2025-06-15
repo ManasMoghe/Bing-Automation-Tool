@@ -1,6 +1,21 @@
 import subprocess
 import pyautogui
 import time
+import datetime
+import os
+
+last_run_file = "last_run.txt"
+today = datetime.date.today().isoformat()
+
+if os.path.exists(last_run_file):
+    with open(last_run_file, "r") as f:
+        last_run_date = f.read().strip()
+    if last_run_date == today:
+        print("Already ran today. Exiting.")
+        exit()
+
+with open(last_run_file, "w") as f:
+    f.write(today)
 
 edge = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
 profile_dir = ["Profile 2","Profile 3"]
