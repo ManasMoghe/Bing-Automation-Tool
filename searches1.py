@@ -1,11 +1,14 @@
-import webbrowser
+import subprocess
 import time
 
-# List of 3 search queries
-search_queries = ["weather today", "news headlines", "coding tutorials"]
+# Path to Microsoft Edge
+edge_path = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
 
-for query in search_queries:
-    # Format the Bing search URL
+# Your search queries
+queries = ["weather today", "AI news", "python tricks"]
+
+# Open 3 Bing searches
+for query in queries:
     url = f"https://www.bing.com/search?q={query}"
-    webbrowser.open_new_tab(url)
-    time.sleep(2)  # Wait a bit between tabs
+    subprocess.Popen([edge_path, url])
+    time.sleep(2)  # delay between opening tabs
