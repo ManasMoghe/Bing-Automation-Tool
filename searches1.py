@@ -3,16 +3,24 @@ import pyautogui
 import time
 import datetime
 import os
+import sys
 
-last_run_file = "last_run.txt"
-today = datetime.date.today().isoformat()
+now = datetime.datetime.now()
+today = now.date().isoformat()
+
+start_time = now.replace(hour=6, minute=0, second=0, microsecond=0)
+end_time = now.replace(hour=23, minute=59, second=59, microsecond=0)
+
+if not (start_time <= now <= end_time):
+    print("Outside allowed time window (6 AM - 11:59 PM). Exiting.")
+    sys.exit()
 
 if os.path.exists(last_run_file):
     with open(last_run_file, "r") as f:
         last_run_date = f.read().strip()
     if last_run_date == today:
         print("Already ran today. Exiting.")
-        exit()
+        sys.exit()
 
 with open(last_run_file, "w") as f:
     f.write(today)
