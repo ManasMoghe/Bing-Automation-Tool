@@ -5,6 +5,7 @@ import datetime
 import os
 import sys
 import pygetwindow as gw
+import random
 
 def is_edge_window_open():
     windows = gw.getAllWindows()
@@ -15,6 +16,7 @@ def is_edge_window_open():
 
 now = datetime.datetime.now()
 today = now.date().isoformat()
+
 start_time = now.replace(hour=6, minute=0, second=0, microsecond=0)
 end_time = now.replace(hour=23, minute=59, second=59, microsecond=0)
 
@@ -23,7 +25,6 @@ if not (start_time <= now <= end_time):
     sys.exit()
 
 last_run_file = os.path.join(os.path.dirname(__file__), "last_run.txt")
-
 if os.path.exists(last_run_file):
     with open(last_run_file, "r") as f:
         last_run_date = f.read().strip()
@@ -41,11 +42,12 @@ if not os.path.exists(queries_file):
     sys.exit()
 
 with open(queries_file, "r", encoding="utf-8") as f:
-    search_queries = [line.strip() for line in f if line.strip()]
+    all_queries = [line.strip() for line in f if line.strip()]
+search_queries = random.sample(all_queries, min(10, len(all_queries)))
 
 edge = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
 profile_dir = ["Profile 2", "Profile 3"]
-url1 = f"https://rewards.bing.com/?form=edgepredeem"
+url1 = "https://rewards.bing.com/?form=edgepredeem"
 
 for profile in profile_dir:
     subprocess.Popen([edge, f"--profile-directory={profile}"])
